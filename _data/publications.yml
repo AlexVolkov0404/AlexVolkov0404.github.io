@@ -1,0 +1,16 @@
+main:
+
+  - title: "Byzantine-Robust Federated Learning: Impact of Client Subsampling and Local Updates"
+    authors:  Youssef Allouah, Sadegh Farhadkhani, Rachid Guerraoui, Nirupam Gupta, Rafael Pinot, Geovani Rizk, <strong>Sasha Voitovych</strong> (&alpha;&beta;)
+    conference: International Conference on Machine Learning <strong>(ICML)</strong>, 2024.
+    pdf: https://arxiv.org/pdf/2402.12780v2
+
+  - title: On the Inherent Anonymity of Gossiping
+    authors: Rachid Guerraoui, Anne-Marie Kermarrec, Anastasiia Kucherenko, Rafael Pinot, <strong>Sasha Voitovych</strong> (&alpha;&beta;)
+    conference: International Symposium on Distributed Computing <strong>(DISC)</strong>, 2023.
+    pdf: https://arxiv.org/pdf/2308.02477
+
+  - title: Near-Optimal Leader Election in Population Protocols on Graphs
+    authors: Dan Alistarh, Joel Rybicki, <strong>Sasha Voitovych</strong> (&alpha;&beta;)
+    conference: ACM Symposium on Principles of Distributed Computing <strong>(PODC)</strong>, 2022.
+    pdf: https://arxiv.org/pdf/2205.12597
