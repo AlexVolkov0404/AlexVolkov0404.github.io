@@ -20,7 +20,7 @@ linkedin: https://www.linkedin.com/in/oleksandr-volkov-44198728a/
 
 # Images (e.g., your profile picture and your website's favicon) 
 # "favicon" and "favicon_dark" are used for the light and dark modes, respectively. 
-avatar: ./assets/img/avatar.jpg
+avatar: ./assets/img/Avatar.jpg
 favicon: ./assets/img/electric-light-bulb.svg
 favicon_dark: ./assets/img/electric-light-bulb.svg
 
