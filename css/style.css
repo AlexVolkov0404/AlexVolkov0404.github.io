@@ -76,7 +76,7 @@ html {
 
 .abstract {
   display: none;
-  background-color: lightgray;
+  background-color: rgb(255, 255, 255);
   padding: 20px;
   width: 70%;
 }
