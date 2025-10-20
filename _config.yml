@@ -26,7 +26,9 @@ author:
   avatar           : "Avatar.jpg"
   name             : "Oleksandr Volkov"
   pronouns         : # example: "she/her"  
-  bio              : "Statistics MA Student at the University of California, Berkeley"
+  bio: |
+  Statistics MA Student
+  at the University of California, Berkeley
   location         : "Albany, CA"
   employer         : #"Red Brick University"
   uri              : # URL
