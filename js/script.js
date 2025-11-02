@@ -1,9 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const links = document.querySelectorAll('.nav-link');
   const mainContent = document.getElementById('main-content');
 
+  // Load pages with fetch (SPA effect)
   links.forEach(link => {
-    link.addEventListener('click', function(event) {
+    link.addEventListener('click', function (event) {
       if (!link.href.endsWith('cv.pdf')) {
         event.preventDefault();
 
@@ -12,26 +13,23 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(html => {
             mainContent.innerHTML = html;
 
-            // Re-render MathJax after content load
+            // Re-render MathJax
             if (window.MathJax) {
               MathJax.typesetPromise();
             }
-          })
-          .catch(error => console.error('Error fetching page:', error));
+          });
       }
     });
   });
 
-  // ✅ Event delegation for Abstract toggles
-  document.addEventListener('click', function(e) {
+  // ✅ Toggle abstracts via event delegation
+  document.addEventListener('click', function (e) {
     if (e.target.classList.contains('toggle-button')) {
-      const id = e.target.getAttribute('onclick').match(/'(.*?)'/)[1];
+      const id = e.target.dataset.target;
       const paragraph = document.getElementById(id);
 
-      if (paragraph.style.display === "none" || paragraph.style.display === "") {
-        paragraph.style.display = "block";
-      } else {
-        paragraph.style.display = "none";
+      if (paragraph) {
+        paragraph.style.display = (paragraph.style.display === 'block') ? 'none' : 'block';
       }
     }
   });
