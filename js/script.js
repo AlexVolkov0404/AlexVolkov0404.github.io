@@ -1,61 +1,77 @@
-// MathJax config for SPA
-window.MathJax = {
-  tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-};
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   const links = document.querySelectorAll('.nav-link');
   const mainContent = document.getElementById('main-content');
 
-  // Load content into mainContent
-  function loadPage(url) {
-    fetch(url)
-      .then(r => r.text())
-      .then(html => {
-        mainContent.innerHTML = html;
-
-        // Bind abstract buttons again after replacing content
-        attachAbstractToggles();
-
-        // Re-render MathJax
-        if (window.MathJax?.typesetPromise) {
-          MathJax.typesetPromise([mainContent]);
-        }
-      })
-      .catch(err => console.error("Load error:", err));
-  }
-
-  // Attach SPA navigation
   links.forEach(link => {
-    link.addEventListener('click', e => {
-      const url = link.getAttribute('href');
+    link.addEventListener('click', function(event) {
+      console.log(link)
 
-      if (url.endsWith(".pdf")) return; // allow PDF normally
+      if (!link.href.endsWith('cv.pdf')) {
+        event.preventDefault();
 
-      e.preventDefault();
-      loadPage(url);
+        fetch(link.href)
+          .then(response => response.text())
+          .then(html => {
+            mainContent.innerHTML = html;
+
+            // ✅ ensure abstract buttons in loaded page work
+            attachAbstractButtons();
+
+            // ✅ render MathJax in whole loaded content
+            if (window.MathJax?.typesetPromise) {
+              MathJax.typesetPromise([mainContent]);
+            }
+          })
+          .catch(error => console.error('Error fetching page:', error));
+      }
     });
   });
 
-  // Toggle abstracts
-  function attachAbstractToggles() {
-    const btns = document.querySelectorAll('.toggle-button');
-    btns.forEach(btn => {
-      btn.onclick = () => {
-        const id = btn.getAttribute('onclick').match(/'(.*?)'/)?.[1];
-        const p = document.getElementById(id);
-        if (!p) return;
+  // initial bind
+  attachAbstractButtons();
+});
 
-        p.style.display = p.style.display === "none" ? "block" : "none";
+// ✅ re-bind buttons after loading content
+function attachAbstractButtons() {
+  const buttons = document.querySelectorAll('.toggle-button');
 
-        // re-render math when shown
-        if (p.style.display === 'block' && window.MathJax?.typesetPromise) {
+  buttons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const id = btn.getAttribute("onclick")?.match(/'(.*?)'/)?.[1] 
+                 || btn.dataset.target;
+
+      if (!id) return;
+
+      const p = document.getElementById(id);
+      if (!p) return;
+
+      // toggle
+      if (p.style.display === "none" || p.style.display === "") {
+        p.style.display = "block";
+
+        // ✅ Render MathJax ONLY when opening abstract
+        if (window.MathJax?.typesetPromise) {
           MathJax.typesetPromise([p]);
         }
-      };
+      } else {
+        p.style.display = "none";
+      }
     });
-  }
+  });
+}
 
-  // first run
-  attachAbstractToggles();
-});
+// ✅ Legacy call — still used by your HTML, leave it
+function showAbstract(id) {
+  const p = document.getElementById(id);
+
+  if (!p) return;
+
+  if (p.style.display === "none" || p.style.display === "") {
+    p.style.display = "block";
+    if (window.MathJax?.typesetPromise) {
+      MathJax.typesetPromise([p]);
+    }
+  } else {
+    p.style.display = "none";
+  }
+}
