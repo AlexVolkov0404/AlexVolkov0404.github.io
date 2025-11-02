@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(response => response.text())
           .then(html => {
             mainContent.innerHTML = html;
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              window.MathJax.typesetPromise();
+            }
           })
           .catch(error => console.error('Error fetching page:', error));
       }
