@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script>
+  window.MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,29 +49,19 @@
   
     <br>
 
-  <h5 style='width: 70%'>A general condition for bias attenuation by a
-  nondifferentially mismeasured confounder</h5>
-  <p>Jeffrey Zhang and <b>Junu Lee</b> <br>
-    <i>Bulletin of Taras Shevchenko National University of Kyiv</i>, 2025 <br>
+  <h5 style='width: 70%'>On a power series distribution with mean
+    parameterization</h5>
+  <p><b>Oleksandr Volkov</b> and Nataliia Voinalovych <br>
+    <i>Scientific Bulletin of Uzhhorod University. Series of Mathematics and Informatics</i>, 2025 <br>
     <a href='https://arxiv.org/abs/2409.12928' id='link'>[link]</a>
   </p>
 
   <button class='toggle-button' onclick="showAbstract('abstract3')"><i class="fa-solid fa-caret-down"></i>
     Abstract</button>
 
-  <p class='abstract' id="abstract3">In real-world studies, the collected confounders may suffer from measurement error.
-  Although mismeasurement of confounders is typically unintentional—originating from
-  sources such as human oversight or imprecise machinery—deliberate mismeasurement
-  also occurs and is becoming increasingly more common. For example, in the 2020
-  U.S. Census, noise was added to measurements to assuage privacy concerns. Sensitive
-  variables such as income or age are oftentimes partially censored and are only known
-  up to a range of values. In such settings, obtaining valid estimates of the causal effect of
-  a binary treatment can be impossible, as mismeasurement of confounders constitutes a
-  violation of the no unmeasured confounding assumption. A natural question is whether
-  the common practice of simply adjusting for the mismeasured confounder is justifiable.
-  In this article, we answer this question in the affirmative and demonstrate that in many
-  realistic scenarios not covered by previous literature, adjusting for the mismeasured
-  confounders reduces bias compared to not adjusting.</p>
+    <p class="abstract" id="abstract3">
+      The article examines the distribution of the power series of the function $w(y) = (1 + \sqrt{1 - y})^{-1/2}$. The distribution of the considered function into a power series is obtained: $(1 + \sqrt{1-y})^{-1/2} = \sum_{m=0}^{\infty} \frac{(4m)!}{(2m)!(2m+1)! \, 2^{4m}} y^m$. The dispersion function is found $v(x) = x(2x+1)(4x+1)$, $x > 0$. A distribution with mean parameterization is constructed: $\Pr(\xi = k) = \frac{(4k+1)}{2^k}\binom{2k}{k}x^k (2k+1)^{k+\frac{1}{2}} (4k+1)^{-2k-\frac{3}{2}}, \quad x > 0$. It is proved that the raw moments $\alpha_m$, central moments $\mu_m$, cumulants $\chi_m$, $m = 1,2,\dots$, satisfy the recurrence relations: $\alpha_{m+1} = x\alpha_m + v(x) \frac{d\alpha_m}{dx}$, $\alpha_0 = 1$, $\alpha_1 = x$; $\mu_{m+1} = m\mu_m + v(x)\frac{d\mu_m}{dx}$, $\mu_0 = 1$, $\mu_1 = 0$; $\chi_{m+1} = v(x)\frac{d\chi_m}{dx}$, $\chi_1 = x$.
+      </p>
 
   <br>
 
