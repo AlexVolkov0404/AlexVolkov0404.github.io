@@ -1,4 +1,7 @@
 // Updates only the main content and not side and top nav
+window.MathJax = {
+  tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+};
 document.addEventListener('DOMContentLoaded', function() {
   const links = document.querySelectorAll('.nav-link');
   const mainContent = document.getElementById('main-content');
