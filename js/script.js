@@ -1,38 +1,67 @@
-// Updates only the main content and not side and top nav
+// MathJax config (still needed here for SPA)
 window.MathJax = {
-  tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
 };
-document.addEventListener('DOMContentLoaded', function() {
+
+// Function to re-render MathJax after content loads
+function renderMath() {
+  if (window.MathJax?.typesetPromise) {
+    MathJax.typesetPromise();
+  }
+}
+
+// When page is ready
+document.addEventListener('DOMContentLoaded', function () {
   const links = document.querySelectorAll('.nav-link');
   const mainContent = document.getElementById('main-content');
 
   links.forEach(link => {
-    link.addEventListener('click', function(event) {
-      console.log(link)
-      if (!link.href.endsWith('cv.pdf')) {
-        event.preventDefault();
+    link.addEventListener('click', function (event) {
+      // Allow CV PDF to open normally
+      if (link.href.endsWith('cv.pdf')) return;
 
-        fetch(link.href)
-          .then(response => response.text())
-          .then(html => {
-            mainContent.innerHTML = html;
-            if (window.MathJax && window.MathJax.typesetPromise) {
-              window.MathJax.typesetPromise();
-            }
-          })
-          .catch(error => console.error('Error fetching page:', error));
-      }
+      event.preventDefault();
+
+      fetch(link.href)
+        .then(response => response.text())
+        .then(html => {
+          // Parse HTML file
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+
+          // Insert ONLY body content, not full document
+          mainContent.innerHTML = doc.body.innerHTML;
+
+          // Re-enable abstract buttons (content was replaced!)
+          rebindAbstractToggles();
+
+          // Re-render MathJax
+          renderMath();
+        })
+        .catch(error => console.error('Error fetching page:', error));
     });
   });
+
+  // Bind toggles on first load
+  rebindAbstractToggles();
 });
 
-// Abstract button handling 
-function showAbstract(abstractId) {
-  var paragraph = document.getElementById(abstractId);
+// Handle abstract toggle buttons
+function rebindAbstractToggles() {
+  const buttons = document.querySelectorAll('.toggle-button');
+  buttons.forEach(btn => {
+    btn.onclick = function () {
+      const id = this.getAttribute('onclick').match(/'(.*?)'/)?.[1] || 
+                 this.dataset.target || null;
+      if (!id) return;
 
-  if (paragraph.style.display === "none") {
-    paragraph.style.display = "block";
-  } else {
-    paragraph.style.display = "none";
-  }
+      const paragraph = document.getElementById(id);
+      if (!paragraph) return;
+
+      paragraph.style.display = (paragraph.style.display === "none" ? "block" : "none");
+
+      // re-render math when showing abstract
+      renderMath();
+    };
+  });
 }
