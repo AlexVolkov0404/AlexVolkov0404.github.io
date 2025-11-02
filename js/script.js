@@ -1,10 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
+// Updates only the main content and not side and top nav
+document.addEventListener('DOMContentLoaded', function() {
   const links = document.querySelectorAll('.nav-link');
   const mainContent = document.getElementById('main-content');
 
-  // Load pages with fetch (SPA effect)
   links.forEach(link => {
-    link.addEventListener('click', function (event) {
+    link.addEventListener('click', function(event) {
+      console.log(link)
       if (!link.href.endsWith('cv.pdf')) {
         event.preventDefault();
 
@@ -12,25 +13,20 @@ document.addEventListener('DOMContentLoaded', function () {
           .then(response => response.text())
           .then(html => {
             mainContent.innerHTML = html;
-
-            // Re-render MathJax
-            if (window.MathJax) {
-              MathJax.typesetPromise();
-            }
-          });
+          })
+          .catch(error => console.error('Error fetching page:', error));
       }
     });
   });
-
-  // ✅ Toggle abstracts via event delegation
-  document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('toggle-button')) {
-      const id = e.target.dataset.target;
-      const paragraph = document.getElementById(id);
-
-      if (paragraph) {
-        paragraph.style.display = (paragraph.style.display === 'block') ? 'none' : 'block';
-      }
-    }
-  });
 });
+
+// Abstract button handling 
+function showAbstract(abstractId) {
+  var paragraph = document.getElementById(abstractId);
+
+  if (paragraph.style.display === "none") {
+    paragraph.style.display = "block";
+  } else {
+    paragraph.style.display = "none";
+  }
+}
