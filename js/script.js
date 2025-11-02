@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(html => {
             mainContent.innerHTML = html;
 
-            // ДОДАНО: перерендер latex
+            // Re-render MathJax after content load
             if (window.MathJax) {
               MathJax.typesetPromise();
             }
@@ -20,5 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
           .catch(error => console.error('Error fetching page:', error));
       }
     });
+  });
+
+  // ✅ Event delegation for Abstract toggles
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('toggle-button')) {
+      const id = e.target.getAttribute('onclick').match(/'(.*?)'/)[1];
+      const paragraph = document.getElementById(id);
+
+      if (paragraph.style.display === "none" || paragraph.style.display === "") {
+        paragraph.style.display = "block";
+      } else {
+        paragraph.style.display = "none";
+      }
+    }
   });
 });
